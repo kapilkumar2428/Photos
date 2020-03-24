@@ -9,21 +9,35 @@
 /* Begin PBXBuildFile section */
 		13AD24C7242A6F140085C491 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24C6242A6F140085C491 /* AppDelegate.swift */; };
 		13AD24C9242A6F140085C491 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24C8242A6F140085C491 /* SceneDelegate.swift */; };
-		13AD24CB242A6F140085C491 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24CA242A6F140085C491 /* ViewController.swift */; };
 		13AD24CE242A6F140085C491 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13AD24CC242A6F140085C491 /* Main.storyboard */; };
 		13AD24D0242A6F150085C491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13AD24CF242A6F150085C491 /* Assets.xcassets */; };
 		13AD24D3242A6F150085C491 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13AD24D1242A6F150085C491 /* LaunchScreen.storyboard */; };
+		13AD24DB242A8F8B0085C491 /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24DA242A8F8B0085C491 /* ImageListViewController.swift */; };
+		13AD24DF242A91920085C491 /* ImageListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24DD242A91920085C491 /* ImageListTableViewCell.swift */; };
+		13AD24E0242A91920085C491 /* ImageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13AD24DE242A91920085C491 /* ImageListTableViewCell.xib */; };
+		13AD24E3242A92510085C491 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24E2242A92510085C491 /* RequestManager.swift */; };
+		13AD24E5242A926C0085C491 /* RequestManager+Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24E4242A926C0085C491 /* RequestManager+Endpoints.swift */; };
+		13AD24E7242A92820085C491 /* RequestManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24E6242A92820085C491 /* RequestManager+Extensions.swift */; };
+		13AD24EA242A92DE0085C491 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24E9242A92DE0085C491 /* ImageModel.swift */; };
+		13AD24ED242A938C0085C491 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24EC242A938C0085C491 /* ImageDownloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13AD24C3242A6F140085C491 /* Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13AD24C6242A6F140085C491 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13AD24C8242A6F140085C491 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		13AD24CA242A6F140085C491 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		13AD24CD242A6F140085C491 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		13AD24CF242A6F150085C491 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13AD24D2242A6F150085C491 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13AD24D4242A6F150085C491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13AD24DA242A8F8B0085C491 /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
+		13AD24DD242A91920085C491 /* ImageListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTableViewCell.swift; sourceTree = "<group>"; };
+		13AD24DE242A91920085C491 /* ImageListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageListTableViewCell.xib; sourceTree = "<group>"; };
+		13AD24E2242A92510085C491 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		13AD24E4242A926C0085C491 /* RequestManager+Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestManager+Endpoints.swift"; sourceTree = "<group>"; };
+		13AD24E6242A92820085C491 /* RequestManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestManager+Extensions.swift"; sourceTree = "<group>"; };
+		13AD24E9242A92DE0085C491 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		13AD24EC242A938C0085C491 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +70,54 @@
 		13AD24C5242A6F140085C491 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				13AD24EB242A93790085C491 /* ImageDownloader */,
+				13AD24E8242A92D00085C491 /* Model */,
+				13AD24E1242A92380085C491 /* Networks */,
+				13AD24DC242A91620085C491 /* CustomCells */,
 				13AD24C6242A6F140085C491 /* AppDelegate.swift */,
 				13AD24C8242A6F140085C491 /* SceneDelegate.swift */,
-				13AD24CA242A6F140085C491 /* ViewController.swift */,
 				13AD24CC242A6F140085C491 /* Main.storyboard */,
 				13AD24CF242A6F150085C491 /* Assets.xcassets */,
 				13AD24D1242A6F150085C491 /* LaunchScreen.storyboard */,
 				13AD24D4242A6F150085C491 /* Info.plist */,
+				13AD24DA242A8F8B0085C491 /* ImageListViewController.swift */,
 			);
 			path = Photos;
+			sourceTree = "<group>";
+		};
+		13AD24DC242A91620085C491 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				13AD24DD242A91920085C491 /* ImageListTableViewCell.swift */,
+				13AD24DE242A91920085C491 /* ImageListTableViewCell.xib */,
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		13AD24E1242A92380085C491 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+				13AD24E2242A92510085C491 /* RequestManager.swift */,
+				13AD24E4242A926C0085C491 /* RequestManager+Endpoints.swift */,
+				13AD24E6242A92820085C491 /* RequestManager+Extensions.swift */,
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
+		13AD24E8242A92D00085C491 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13AD24E9242A92DE0085C491 /* ImageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		13AD24EB242A93790085C491 /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				13AD24EC242A938C0085C491 /* ImageDownloader.swift */,
+			);
+			path = ImageDownloader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13AD24D3242A6F150085C491 /* LaunchScreen.storyboard in Resources */,
+				13AD24E0242A91920085C491 /* ImageListTableViewCell.xib in Resources */,
 				13AD24D0242A6F150085C491 /* Assets.xcassets in Resources */,
 				13AD24CE242A6F140085C491 /* Main.storyboard in Resources */,
 			);
@@ -138,9 +192,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13AD24CB242A6F140085C491 /* ViewController.swift in Sources */,
+				13AD24E3242A92510085C491 /* RequestManager.swift in Sources */,
 				13AD24C7242A6F140085C491 /* AppDelegate.swift in Sources */,
+				13AD24E5242A926C0085C491 /* RequestManager+Endpoints.swift in Sources */,
+				13AD24DF242A91920085C491 /* ImageListTableViewCell.swift in Sources */,
+				13AD24E7242A92820085C491 /* RequestManager+Extensions.swift in Sources */,
 				13AD24C9242A6F140085C491 /* SceneDelegate.swift in Sources */,
+				13AD24DB242A8F8B0085C491 /* ImageListViewController.swift in Sources */,
+				13AD24ED242A938C0085C491 /* ImageDownloader.swift in Sources */,
+				13AD24EA242A92DE0085C491 /* ImageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
