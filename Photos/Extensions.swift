@@ -2,7 +2,7 @@
 //  Extensions.swift
 //  Photos
 //
-//  Created by Krithika Iyer 2 on 25/03/20.
+//  Created by Kapil on 25/03/20.
 //  Copyright © 2020 kapil. All rights reserved.
 //
 
