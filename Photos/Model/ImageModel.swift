@@ -20,7 +20,7 @@ struct Photos: Codable {
     let photo: [Item]?
 }
 
-struct Item: Codable {
+class Item: Codable {
     let id, owner, secret, server: String?
     let farm: Int?
     let title: String?
@@ -35,7 +35,7 @@ struct Item: Codable {
     }
     
     func getImageURL(_ size: String = "m") -> URL? {
-      if let url =  URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_\(size).jpg") {
+        if let url =  URL(string: "https://farm\(farm ?? 0).staticflickr.com/\(server ?? "")/\(id ?? "")_\(secret ?? "")_\(size).jpg") {
         return url
       }
       return nil

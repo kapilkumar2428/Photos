@@ -20,6 +20,7 @@
 		13AD24E7242A92820085C491 /* RequestManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24E6242A92820085C491 /* RequestManager+Extensions.swift */; };
 		13AD24EA242A92DE0085C491 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24E9242A92DE0085C491 /* ImageModel.swift */; };
 		13AD24ED242A938C0085C491 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24EC242A938C0085C491 /* ImageDownloader.swift */; };
+		13AD24F0242A9A460085C491 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AD24EF242A9A460085C491 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		13AD24E6242A92820085C491 /* RequestManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestManager+Extensions.swift"; sourceTree = "<group>"; };
 		13AD24E9242A92DE0085C491 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		13AD24EC242A938C0085C491 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		13AD24EF242A9A460085C491 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,13 +76,14 @@
 				13AD24E8242A92D00085C491 /* Model */,
 				13AD24E1242A92380085C491 /* Networks */,
 				13AD24DC242A91620085C491 /* CustomCells */,
+				13AD24EE242A97830085C491 /* ViewController */,
 				13AD24C6242A6F140085C491 /* AppDelegate.swift */,
 				13AD24C8242A6F140085C491 /* SceneDelegate.swift */,
 				13AD24CC242A6F140085C491 /* Main.storyboard */,
 				13AD24CF242A6F150085C491 /* Assets.xcassets */,
 				13AD24D1242A6F150085C491 /* LaunchScreen.storyboard */,
 				13AD24D4242A6F150085C491 /* Info.plist */,
-				13AD24DA242A8F8B0085C491 /* ImageListViewController.swift */,
+				13AD24EF242A9A460085C491 /* Extensions.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -118,6 +121,14 @@
 				13AD24EC242A938C0085C491 /* ImageDownloader.swift */,
 			);
 			path = ImageDownloader;
+			sourceTree = "<group>";
+		};
+		13AD24EE242A97830085C491 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13AD24DA242A8F8B0085C491 /* ImageListViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +208,7 @@
 				13AD24E5242A926C0085C491 /* RequestManager+Endpoints.swift in Sources */,
 				13AD24DF242A91920085C491 /* ImageListTableViewCell.swift in Sources */,
 				13AD24E7242A92820085C491 /* RequestManager+Extensions.swift in Sources */,
+				13AD24F0242A9A460085C491 /* Extensions.swift in Sources */,
 				13AD24C9242A6F140085C491 /* SceneDelegate.swift in Sources */,
 				13AD24DB242A8F8B0085C491 /* ImageListViewController.swift in Sources */,
 				13AD24ED242A938C0085C491 /* ImageDownloader.swift in Sources */,

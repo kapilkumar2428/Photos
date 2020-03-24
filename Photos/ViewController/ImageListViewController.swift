@@ -8,14 +8,22 @@
 
 import UIKit
 
-class ImageListViewController: UIViewController {
+class ImageListViewController: UIViewController, CustomLoadingIndicator {
 
     @IBOutlet weak var tableView: UITableView!
     var listData: [Item] = []
+    @IBOutlet weak var searchBar: UISearchBar!
     let pendingOperations = PendingOperations()
+    var loadingIndicator: UIActivityIndicatorView?
+    var pageCounter = 1
+    private lazy var requestManager = RequestManager<ImagesModel>()
+    var isLoading = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableFooterVsiew = UIView()
+        searchBar.delegate = self
+        searchBar.enablesReturnKeyAutomatically = false
+        searchBar.returnKeyType = .done
+        tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -23,12 +31,31 @@ class ImageListViewController: UIViewController {
         self.tableView.register(UINib(nibName: "ImageListTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageListTableViewCell")
     }
     
+    func loadList(query: String, pageCount: Int) {
+        showLoadingIndicator()
+        isLoading = true
+        requestManager.getImagesWith(query: query, pageCount: pageCount) { [weak self] (result) in
+            self?.isLoading = false
+            self?.hideLoadingIndicator()
+            switch result {
+            case .success(let imageData):
+                DispatchQueue.main.async {
+                    self?.listData.append(contentsOf: imageData?.photos?.photo ?? [])
+                    self?.tableView.reloadData()
+                }
+            
+            case .failed(let error,_):
+                print(error)
+            }
+        }
+    }
+    
     func startOperations(for photoRecord: Item, at indexPath: IndexPath) {
       switch (photoRecord.state) {
       case .new:
         startDownload(for: photoRecord, at: indexPath)
       default:
-        NSLog("do nothing")
+        NSLog("don't load")
       }
     }
     
@@ -110,6 +137,11 @@ class ImageListViewController: UIViewController {
             }}))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func resetTable() {
+        pageCounter = 1
+        listData.removeAll()
+    }
 }
 
 extension ImageListViewController: UITableViewDataSource {
@@ -147,17 +179,28 @@ extension ImageListViewController: UITableViewDataSource {
         case .downloaded:
             indicator.stopAnimating()
         }
+        
+        if indexPath.row == listData.count - 1 && isLoading == false {
+            pageCounter += 1
+            if let text = searchBar.searchTextField.text {
+                loadList(query: text, pageCount: pageCounter)
+            }
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(tableView, heightForRowAt: indexPath)
     }
 }
 
 extension ImageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let photoDetail = listData[indexPath.row]
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "ImageDetailViewController") as! ImageDetailViewController
-        vc.imageData = photoDetail
-        self.navigationController?.pushViewController(vc, animated: true)
+        print("Nothing")
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -174,5 +217,13 @@ extension ImageListViewController: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
       loadImagesForOnscreenCells()
       resumeAllOperations()
+    }
+}
+
+extension ImageListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        resetTable()
+        loadList(query: searchBar.text ?? "",pageCount: pageCounter)
+        self.searchBar.endEditing(true)
     }
 }

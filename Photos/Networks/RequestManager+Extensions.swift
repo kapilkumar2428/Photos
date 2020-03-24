@@ -10,7 +10,7 @@ import Foundation
 
 extension RequestManager {
     
-    func getImagesWith(query: String, completion: CompletionHandler<ResponseType>? = nil) {
-        self.getData(Endpoints.getImages.getImagesWithQuery(query: query), completion: completion)
+    func getImagesWith(query: String,pageCount: Int, completion: CompletionHandler<ResponseType>? = nil) {
+        self.getData(Endpoints.getImages.getImagesWithQuery(query: query, pageCount: pageCount), completion: completion)
     }
 }

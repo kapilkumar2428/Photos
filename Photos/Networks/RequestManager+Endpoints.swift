@@ -11,18 +11,18 @@ import Foundation
 typealias HTTPHeader = [String: String]
 
 enum Endpoints {
-    private static let baseUrl = "https://www.googleapis.com/customsearch/v1?q="
-    private static let apiKey = "AIzaSyAjTPFgulkdrELcWmo1jAa8wqtHLrztyKc"
-    private static let path = "&cx=011476162607576381860:ra4vmliv9ti&key="
+    private static let baseUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
+    private static let apiKey = "062a6c0c49e4de1d78497d13a7dbb360"
+    private static let path = "&per_page=20&format=json&nojsoncallback=1"
     
     case getImages
     
-    func getImagesWithQuery(query: String) -> URLRequest {
+    func getImagesWithQuery(query: String, pageCount: Int) -> URLRequest {
         switch self {
         case .getImages:
             let queryWithSpace = query.replacingOccurrences(of: " ", with: "%20")
-            let urlString = Endpoints.baseUrl + "\(queryWithSpace)" + Endpoints.path + Endpoints.apiKey
-            let url = URL(string: urlString)
+            let urlString = Endpoints.baseUrl  + Endpoints.apiKey + "&text=\(queryWithSpace)" + Endpoints.path
+            let url = URL(string: urlString)?.appending("page", value: pageCount.description)
             return URLRequest(url: url!)
         }
     }

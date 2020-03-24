@@ -35,7 +35,11 @@ class ImageDownloader: Operation {
       return
     }
     
-    guard let imageData = try? Data(contentsOf: photoRecord.getImageURL()!) else { return }
+    guard let url = photoRecord.getImageURL(),
+    let imageData = try? Data(contentsOf: url as URL) else {
+        photoRecord.state = .failed
+        photoRecord.image = UIImage(named: "failed")
+        return }
     
     if isCancelled {
       return
