@@ -11,18 +11,26 @@ import UIKit
 class ImageListViewController: UIViewController, CustomLoadingIndicator {
 
     @IBOutlet weak var tableView: UITableView!
-    var listData: [Item] = []
     @IBOutlet weak var searchBar: UISearchBar!
-    let pendingOperations = PendingOperations()
+    private let pendingOperations = PendingOperations()
     var loadingIndicator: UIActivityIndicatorView?
-    var pageCounter = 1
+    private var pageCounter = 1
+    private var totalPages = 0
+    private var listData: [Item] = []
     private lazy var requestManager = RequestManager<ImagesModel>()
     var isLoading = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        searchBar.enablesReturnKeyAutomatically = false
-        searchBar.returnKeyType = .done
+        setupUI()
+    }
+    
+    private func setupUI() {
+        configTable()
+        configSearchBar()
+    }
+    
+    private func configTable() {
         tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
@@ -31,26 +39,37 @@ class ImageListViewController: UIViewController, CustomLoadingIndicator {
         self.tableView.register(UINib(nibName: "ImageListTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageListTableViewCell")
     }
     
-    func loadList(query: String, pageCount: Int) {
+    private func configSearchBar() {
+        searchBar.delegate = self
+        searchBar.enablesReturnKeyAutomatically = false
+        searchBar.returnKeyType = .done
+    }
+    
+    private func loadList(query: String, pageCount: Int) {
         showLoadingIndicator()
         isLoading = true
+        tableView.restore()
         requestManager.getImagesWith(query: query, pageCount: pageCount) { [weak self] (result) in
             self?.isLoading = false
             self?.hideLoadingIndicator()
             switch result {
             case .success(let imageData):
                 DispatchQueue.main.async {
+                    self?.totalPages = imageData?.photos?.pages ?? 0
                     self?.listData.append(contentsOf: imageData?.photos?.photo ?? [])
+                    if self?.listData.count == 0 {
+                        self?.showMessage(message: "No result found. Please try again")
+                    }
                     self?.tableView.reloadData()
                 }
             
             case .failed(let error,_):
-                print(error)
+                self?.showMessage(message: error)
             }
         }
     }
     
-    func startOperations(for photoRecord: Item, at indexPath: IndexPath) {
+    private func startOperations(for photoRecord: Item, at indexPath: IndexPath) {
       switch (photoRecord.state) {
       case .new:
         startDownload(for: photoRecord, at: indexPath)
@@ -59,7 +78,7 @@ class ImageListViewController: UIViewController, CustomLoadingIndicator {
       }
     }
     
-    func startDownload(for photoRecord: Item, at indexPath: IndexPath) {
+    private func startDownload(for photoRecord: Item, at indexPath: IndexPath) {
       guard pendingOperations.downloadsInProgress[indexPath] == nil else {
         return
       }
@@ -77,19 +96,18 @@ class ImageListViewController: UIViewController, CustomLoadingIndicator {
       }
       
       pendingOperations.downloadsInProgress[indexPath] = downloader
-      
       pendingOperations.downloadQueue.addOperation(downloader)
     }
     
-    func suspendAllOperations() {
+    private func suspendAllOperations() {
       pendingOperations.downloadQueue.isSuspended = true
     }
     
-    func resumeAllOperations() {
+    private func resumeAllOperations() {
       pendingOperations.downloadQueue.isSuspended = false
     }
     
-    func loadImagesForOnscreenCells() {
+    private func loadImagesForOnscreenCells() {
       if let pathsArray = tableView.indexPathsForVisibleRows {
         
         let allPendingOperations = Set(pendingOperations.downloadsInProgress.keys)
@@ -118,7 +136,7 @@ class ImageListViewController: UIViewController, CustomLoadingIndicator {
       }
     }
     
-    func showMessage(message: String) {
+    private func showMessage(message: String) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
               switch action.style{
@@ -138,7 +156,7 @@ class ImageListViewController: UIViewController, CustomLoadingIndicator {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func resetTable() {
+    private func resetTable() {
         pageCounter = 1
         listData.removeAll()
     }
@@ -148,8 +166,11 @@ extension ImageListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if listData.count == 0 {
-            showMessage(message: "No result found")
+            self.tableView.setEmptyMessage("No data found. Please search something...")
+        } else {
+            self.tableView.restore()
         }
+
         return listData.count
     }
     
@@ -179,10 +200,10 @@ extension ImageListViewController: UITableViewDataSource {
         case .downloaded:
             indicator.stopAnimating()
         }
-        
+
         if indexPath.row == listData.count - 1 && isLoading == false {
-            pageCounter += 1
-            if let text = searchBar.searchTextField.text {
+            if let text = searchBar.searchTextField.text, (pageCounter+1) <= totalPages {
+                pageCounter += 1
                 loadList(query: text, pageCount: pageCounter)
             }
         }
@@ -224,6 +245,6 @@ extension ImageListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         resetTable()
         loadList(query: searchBar.text ?? "",pageCount: pageCounter)
-        self.searchBar.endEditing(true)
+        searchBar.endEditing(true)
     }
 }

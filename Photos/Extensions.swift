@@ -53,20 +53,45 @@ extension URL {
     func appending(_ queryItem: String, value: String?) -> URL {
 
         guard var urlComponents = URLComponents(string: absoluteString) else { return absoluteURL }
-
-        // Create array of existing query items
         var queryItems: [URLQueryItem] = urlComponents.queryItems ??  []
-
-        // Create query item
         let queryItem = URLQueryItem(name: queryItem, value: value)
-
-        // Append the new query item in the existing query items array
         queryItems.append(queryItem)
-
-        // Append updated query items array in the url component object
         urlComponents.queryItems = queryItems
-
-        // Returns the url from new url components
         return urlComponents.url!
     }
 }
+
+
+extension UITableView {
+
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .black
+        messageLabel.numberOfLines = 0
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+        messageLabel.sizeToFit()
+
+        self.backgroundView = messageLabel
+        self.separatorStyle = .none
+    }
+
+    func restore() {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
+    
+    func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
+      return indexPath.section < self.numberOfSections && indexPath.row < self.numberOfRows(inSection: indexPath.section)
+    }
+
+    func scrollToTop(animated: Bool) {
+      let indexPath = IndexPath(row: 0, section: 0)
+      if self.hasRowAtIndexPath(indexPath: indexPath) {
+        self.scrollToRow(at: indexPath, at: .top, animated: animated)
+      }
+    }
+}
+
+
